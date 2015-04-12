@@ -1,11 +1,8 @@
 var port = process.env.PORT || 8000;
-var serverUrl = "https://astromed.herokuapp.com" || "127.0.0.1";
  
 var http = require("http");
 var path = require("path"); 
 var fs = require("fs"); 		
- 
-console.log("Starting web server at " + serverUrl + ":" + port);
  
 http.createServer( function(req, res) {
  
@@ -44,7 +41,7 @@ http.createServer( function(req, res) {
 		console.log("Invalid file extension detected: " + ext)
 	}
  
-}).listen(port, serverUrl);
+}).listen(port);
  
 function getFile(localPath, res, mimeType) {
 	fs.readFile(localPath, function(err, contents) {
