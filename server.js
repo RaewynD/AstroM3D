@@ -1,5 +1,5 @@
 var port = process.env.PORT || 8000;
-var serverUrl = "http://astromed.herokuapp.com" || "127.0.0.1";
+var serverUrl = "https://astromed.herokuapp.com" || "127.0.0.1";
  
 var http = require("http");
 var path = require("path"); 
