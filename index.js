@@ -24,7 +24,19 @@ database = database + '{"name" : "Cast", "img" : "cast.JPG", ';
 database = database + '"gif" : "cast.gif", "src" : "cast.stl", ';
 database = database + '"about" : "A cast is a shell, frequently made from plaster, encasing a limb (or, in some cases, large portions of the body) to stabilize and hold anatomical structures, most often a broken bone (or bones), in place until healing is confirmed. It is similar in function to a splint."}';
 
-database = database + "]";
+database = database + ']';
+
+var teammates = '[';
+
+teammates = teammates + '{"first" : "Raewyn", "last" : "Duvall", "title" : "Software Engineer", "img" : "rd.JPG"}, ';
+teammates = teammates + '{"first" : "Arthur", "last" : "Choe", "title" : "Mechanical Engineer", "img" : "ac.JPG"}, ';
+teammates = teammates + '{"first" : "Kamal", "last" : "Patel", "title" : "Product Manager", "img" : "kp.JPG"}, ';
+teammates = teammates + '{"first" : "Harsha", "last" : "Kalidindi", "title" : "Business Manager", "img" : "hk.JPG"}, ';
+teammates = teammates + '{"first" : "Hiroya", "last" : "Matsubara", "title" : "Researcher", "img" : "hm.JPG"}, ';
+teammates = teammates + '{"first" : "Shinnosuke", "last" : "Wanaka", "title" : "Web Developer", "img" : "sw.JPG"}';
+
+teammates = teammates + ']';
+
 
 
 var sort_by = function(field, reverse, primer){
@@ -72,13 +84,72 @@ function individual(i) {
     var data = JSON.parse(database);
     data.sort(sort_by('name', false, function(a){return a.toUpperCase()}));
 
-    var code = '';
-    code = code + '<div class="large-8 columns"><div class="row">';
+    var code = '<div class="large-8 columns"><div class="row">';
     code = code + '<h1 class="astrofont">' + data[i]["name"] + '</h1>';
     code = code + '<img src="' + data[i]["gif"] + '">';
     code = code + '<h4>' + data[i]["about"] + '</h4>';
     code = code + '<h4>.stl: <a href="' + data[i]["src"] + '">' + data[i]["src"] + '</a></h4>';
-    code = code + '<br></div></div>';
+    code = code + '</div></div>';
+
+    elem.innerHTML = code;
+}
+
+function home() {
+    var elem = document.getElementById("page");
+    var code = '<a href="#" onclick="populate()">';
+    code = code + '<div class="large-4 small-12 columns">';
+    code = code + '<img src="logo.JPG">';
+    code = code + '<div class="hide-for-small panel">';
+    code = code + '<h2 class="astrofont"><c1>Astro<c2>M3D</h2>';
+    code = code + '<h5 class="subheader">Bringing Virtual Supplies to Reality</h5>';
+    code = code + '</div></div></a><div id="info"></div>';
+    elem.innerHTML = code;
+    populate();
+}
+    
+function about() {
+    var elem = document.getElementById("page");
+    var code = '<h1 class=astrofont>About Us</h1>';
+    
+    code = code + '<h4>Space and remote parts of the world currently have limited access to a variety of medical supplies. ';
+    code = code + 'What if it were possible to print what you needed? ';
+    code = code + 'Instead of taking every supply known to man but still invariably missing a vital tool in an unexpected case, ';
+    code = code + 'why not just take printing supplies and the basics? ';
+    code = code + '<span class="astrofont"><c1>Astro<c2>M3D</span> seeks to expand the availability of medical supplies ';
+    code = code + 'to areas that have this limited access by creating a database of the 3D models able to be printed.</h4>';
+    
+    code = code + '<h4>Take a closer look at what we’ve been accomplishing!</h4>';
+
+    code = code + '<br>'
+    code = code + '<video width=75% controls>';
+    code = code + '<source src="about.mp4" type="video/mp4">';
+    code = code + 'Your browser does not support the video tag.';
+    code = code + '</video>';
+
+    code = code + '<br><div class="row">';
+    code = code + '<h1 class=astrofont>Meet the Team</h1>';
+
+    code = code + '<table width=100% class="astrofont-large">'
+    var team = JSON.parse(teammates);
+    team.sort(sort_by('last', false, function(a){return a.toUpperCase()}));
+    var i = 0;
+    while (i < team.length) {
+        code = code + '<tr>';
+        code = code + '<td><img class="team_img" src="' + team[i]["img"] + '"></td>';
+        code = code + '<td>' + team[i]["first"] + ' ' + team[i]["last"];
+        code = code + '<br>' + team[i]["title"] + '</td>';
+        if (i+1 < team.length) {
+            i++;
+            code = code + '<td><img class="team_img" src="' + team[i]["img"] + '"></td>';
+            code = code + '<td>' + team[i]["first"] + ' ' + team[i]["last"];
+            code = code + '<br>' + team[i]["title"] + '</td>';
+        }
+        code = code + '</tr>';
+        code = code + '<br>';
+        i++;
+    }
+    code = code + '</table>'
+    code = code + '</div>';
 
     elem.innerHTML = code;
 }
